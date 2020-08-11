@@ -1,0 +1,12 @@
+{
+  "name": "mockire",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "clear; mocha **/*.spec.js"
+  },
+  "dependencies": {
+    "mocha": "^8.1.1"
+  }
+}
