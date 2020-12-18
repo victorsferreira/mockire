@@ -15,7 +15,7 @@ Use with caution.
 
 ## Use cases:
 
-# Clearing cache before tests start
+### Clearing cache before tests start
 ```
 const { clearRequireCache } = require('mockire');
 let server;
@@ -27,7 +27,7 @@ describe('Unit tests', () => {
 } 
 ```
 
-# Loads fake dependencies
+### Loads fake dependencies
 ```
 const { match } = require('mockire');
 match('MyProjectDirectory/config/env/*', { port: 8000, db: { host: 'localhost', port: '27017' } });
@@ -40,7 +40,7 @@ describe('Unit tests', () => {
 } 
 ```
 
-# Creates virtual dependency
+### Creates virtual dependency
 ```
 const { exact, clearStubs } = require('mockire');
 if (!fs.existsSync('./path/customLib)) {
