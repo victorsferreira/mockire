@@ -1,8 +1,13 @@
 {
   "name": "mockire",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
+  "keywords": ["require", "stub", "test", "unit-tests", "dev"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/victorsferreira/mockire"
+  },
   "scripts": {
     "test": "clear; mocha **/*.spec.js"
   },

@@ -46,6 +46,12 @@ function reset() {
     Mod.prototype.require = req;
 }
 
+function clearRequireCache() {
+    Object.keys(require.cache).forEach((key) => {
+        delete require.cache[key];
+    });
+}
+
 init();
 
 module.exports = {
@@ -53,5 +59,6 @@ module.exports = {
     match,
     exact,
     reset,
-    init
+    init,
+    clearRequireCache
 }

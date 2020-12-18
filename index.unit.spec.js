@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { match, clearStubs, exact, reset, init } = require('./index');
+const { match, clearStubs, exact, reset, init, clearRequireCache } = require('./index');
 
 describe('Unit tests', () => {
     const fixtures = {
@@ -16,21 +16,21 @@ describe('Unit tests', () => {
         it('must intercept requires with a given pattern', (done) => {
             match('some/path/*', fixtures.requiredMock);
 
-            assert.deepEqual(require('./some/path/env.json'), fixtures.requiredMock);
+            assert.deepStrictEqual(require('./some/path/env.json'), fixtures.requiredMock);
 
             done();
         });
         it('must intercept requires that contain the given path', (done) => {
             match('some/path/', fixtures.requiredMock);
 
-            assert.deepEqual(require('./some/path/env.json'), fixtures.requiredMock);
+            assert.deepStrictEqual(require('./some/path/env.json'), fixtures.requiredMock);
 
             done();
         });
         it('must intercept requires that is exactly the given path', (done) => {
             match('./some/path/env.json', fixtures.requiredMock);
 
-            assert.deepEqual(require('./some/path/env.json'), fixtures.requiredMock);
+            assert.deepStrictEqual(require('./some/path/env.json'), fixtures.requiredMock);
 
             done();
         });
@@ -40,8 +40,8 @@ describe('Unit tests', () => {
             match('./some/path/other/env.json', otherMock);
             match('./some/path/env.json', fixtures.requiredMock);
 
-            assert.deepEqual(require('./some/path/other/env.json'), otherMock);
-            assert.deepEqual(require('./some/path/env.json'), fixtures.requiredMock);
+            assert.deepStrictEqual(require('./some/path/other/env.json'), otherMock);
+            assert.deepStrictEqual(require('./some/path/env.json'), fixtures.requiredMock);
 
             done();
         });
@@ -61,7 +61,7 @@ describe('Unit tests', () => {
         it('must intercept requires with exactly the given path', (done) => {
             exact('./some/path/env.json', fixtures.requiredMock);
 
-            assert.deepEqual(require('./some/path/env.json'), fixtures.requiredMock);
+            assert.deepStrictEqual(require('./some/path/env.json'), fixtures.requiredMock);
 
             done();
         });
@@ -81,7 +81,7 @@ describe('Unit tests', () => {
         it('must stop using the interceptor if reset was invoked', (done) => {
             exact('./some/path/env.json', fixtures.requiredMock);
 
-            assert.deepEqual(require('./some/path/env.json'), fixtures.requiredMock);
+            assert.deepStrictEqual(require('./some/path/env.json'), fixtures.requiredMock);
 
             reset();
 
@@ -98,7 +98,7 @@ describe('Unit tests', () => {
         it('must be able to init manually', (done) => {
             exact('./some/path/env.json', fixtures.requiredMock);
 
-            assert.deepEqual(require('./some/path/env.json'), fixtures.requiredMock);
+            assert.deepStrictEqual(require('./some/path/env.json'), fixtures.requiredMock);
 
             reset();
 
@@ -111,7 +111,7 @@ describe('Unit tests', () => {
 
             init();
 
-            assert.deepEqual(require('./some/path/env.json'), fixtures.requiredMock);
+            assert.deepStrictEqual(require('./some/path/env.json'), fixtures.requiredMock);
 
             done();
         });
@@ -121,7 +121,7 @@ describe('Unit tests', () => {
         it('must be able to clear stubs', (done) => {
             exact('./some/path/env.json', fixtures.requiredMock);
 
-            assert.deepEqual(require('./some/path/env.json'), fixtures.requiredMock);
+            assert.deepStrictEqual(require('./some/path/env.json'), fixtures.requiredMock);
 
             clearStubs();
 
@@ -131,6 +131,15 @@ describe('Unit tests', () => {
             } catch (err) {
                 done();
             }
+        });
+    });
+
+    describe('clearRequireCache', () => {
+        it('must be able to clear the require cache', (done) => {
+            assert.strictEqual(Object.keys(require.cache).length > 0, true)
+            clearRequireCache();
+            assert.strictEqual(Object.keys(require.cache).length === 0, true)
+            done()
         });
     });
 });
