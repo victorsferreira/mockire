@@ -1,6 +1,6 @@
 {
   "name": "mockire",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "main": "index.js",
   "license": "MIT",
   "keywords": [
@@ -17,7 +17,7 @@
   "scripts": {
     "test": "clear; mocha **/*.spec.js"
   },
-  "dependencies": {
+  "devDependencies": {
     "mocha": "^9.1.3"
   }
 }
